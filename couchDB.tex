@@ -1,6 +1,9 @@
 \section{CouchDB als Beispiel einer nicht-relationalen Datenbank}
 \label{couchDB}
 
+Dieses Kapitel stellt zunächst allgemein nicht-relationale Datenbanken und ihre Eigenschaften vor. Anschließend wird exemplarisch die Datenbank \textit{CouchDB} näher beschrieben
+
+\subsection{Nicht-relationale Datenbanken}
 CouchDB gehört zur Klasse sogenannten der NoSQL-Datenbanken. Dieser Begriff wurde Ende der 1990er Jahre geprägt, konnte jedoch seitdem nicht eindeutig definiert werden. Zwar gibt es ein NoSQL-Archiv \cite{nosqlArchiv}, das sich um eine Definiton bemüht hat, jedoch ist diese nicht in allen Punkten allgemein anerkannt und bietet nur eine Orientierung \cite[S. 2 ff.]{nosqlBuch}.\\
 "`NoSQL"' bedeutet im Kern, dass eine entsprechende Datenbank nicht dem weit verbreiteten relationalen Modell entspricht. Da die diese Art der Datenbanken vor allem unter dem Druck wachsender Datenmengen im Internet entstanden ist, die nicht mehr auf einzelne große Datenträger passten, sind Verteiltheit und horizontale Skalierbarkeit Teil des Konzepts. "`Horizontale Skalierbarkeit"' steht für die Möglichkeit, zusätzliche Knoten (physische oder virtuelle Rechner) in eine Menge von Speicherknoten einzufügen (\textit{Scale out}) und nicht die schon bestehenden Knoten mit mehr Leistung auszustatten (\textit{Scale up}).\\
 Neben dieser Eigenschaft haben viele NoSQL-Datenbanken entweder kein oder nur ein schwaches vorgegebenes Schema, in dem die Daten gespeichert werden müssen. Auch dies ist den Anforderungen des Web 2.0 geschuldet, denn Web-Anwendungen müssen häufig eine höhere Flexibilität aufweisen als beispielsweise eine gewachsene Unternehmensdatenbank. \\
@@ -8,18 +11,37 @@ Ein weiterer wichtiger Punkt im Zusammenhang mit verteilten Systemen ist eine ei
 Der letzte Punkt, der nahezu von allen NoSQL-Datenbanken erfüllt ist, ist die Verwendung eines Konsistenzmodells, dass nicht auf absolute Konsistenz abzielt, sondern mögliche inkonsistente Zustände für einen gewissen Zeitraum zulässt. Dies ist möglich, da viele Web-Anwendungen keine besonders kritischen Daten verwalten. In sozialen Netzwerken bespielsweise ist es nicht unbedingt nötig, dass alle die gleichen Daten sehen. Sieht ein Nutzer eventuell erst mit Verzögerung einen aktuellen Pinnwandeintrag oder ein aktualisiertes Foto, wird das keine schlimmen Folgen haben.\\
 NoSQL-Datenbanken lassen sich vor allem über ihre Datenorganisation kategorisieren:
 
-\begin{center}
+\begin{table}
+
+	\centering
 	\begin{tabular}{|l|p{9cm}|}
 				\hline
-				Key/Value & Hier wird ein einfaches Schema aus Schlüsseln und Werten angeboten, das es ermöglicht, 																Daten effizient und schnell zu verwalten. Diesen Systemen fehlt es allerdings häufig an 											Abfragemächtigkeit.\\
+				Key/Value & Hier wird ein einfaches Schema aus Schlüsseln und Werten angeboten, das es ermöglicht, Daten effizient und schnell zu verwalten. Diesen Systemen fehlt es allerdings häufig an Abfragemächtigkeit.\\
 				\hline
-				Column-Family & bla\\
+				Column-Family & In dieser Datenbankkategorie können beliebige Schlüssel auf beliebig viele Schlüssel/Wert-Paare angewandt werden. Da auch eine Spalte mit beliebig vielen Schlüssel/Wert-Paaren erweitert werden kann, ergeben so die so genannten Column-Families (Spalten-Familien). Kombiniert werden hier Elemete aus Schlüssel/Wert-Systemen, spaltenorientierten Datenbanken und relationalen Datenbanken.\\
 				\hline
+				Document Stores & Hier werden Daten in Form von Dokumenten abgelegt. Gemeint ist hier allerdings nicht, dass Dateien verschiedenen Typs wie z.B. Word-, PDF- oder Text-Dateien abgelegt werden können, sondern nur strukturierte Dokumente wie XML- oder JSON-Dateien. Identifiziert werden können die Dokumente meist über einen Identifier.\\
+				\hline
+				Graphdatenbanken &  Diese Datenbankart organisiert Daten als Knoten eines Graphen. Da es viele verschiedene Graphtypen gibt, gibt es ebensoviele Realisierungen von Graphdatenbanken. Daten können hier über die Kanten des Graphen gezielt in Verbindung gebracht werden. Assoziationen können hier deutlich schneller untersucht werden, als es z.B. in relationalen Datenbanken der Fall ist.\\
+				\hline	
 	\end{tabular}
-\end{center}
+	\caption{Kategorisierung von NoSQL-Datenbank (Vgl. siehe \cite[S. 7 ff.]{nosqlBuch}.}
+\end{table}
 
+\subsection{CouchDB - Eigenschaften}
 
 CouchDB zählt zur Kategorie der dokumentenorientierten Datenbanken. Dies bedeutet, dass Daten nicht in vorgegebenen Tabellen mit bestimmten Attributen wie im relationalen Fall abgelegt werden, sondern als Dokumente so, wie sie im "`realen"' Leben vorkommen, abgespeichert werden. Das einzige, schwache einzuhaltende Schema ist, dass die Dokumente im JSON-Format (Java Script Object Notation) vorliegen müssen. Dokumente könnten beispielsweise Rechnungen, Visitenkarten oder Buchbeschreibungen sein. Folglich enthält CouchDB also semi-strukturierte Daten, da zwar eine grundsätzliche Syntax ähnlich wie bei XML eingehalten werden muss, aber keine sonstige Struktur vorgegeben ist. Dies bringt Flexibilität, da so Dokumente mit zusätzlichen Attributen abgespeichert werden können, ohne ein zugrundeliegendes Schema ändern zu müssen.\\
 CouchDB ist von vorn herein auf verteilte Datenhaltung und Replikation ausgelegt. Es ist eine Server-Datenbank und bietet zur Kommunikation eine RESTful JSON API (Application Programming Interface). \textit{REST} steht für \textit{REpresentational State Transfer} und ist ein Architekturstil für verteilte Systeme. Die Kommunikation läuft meist über HTTP (HyperTextTransferProtocol) und die größte Implementierung dieses Stils ist das World Wide Web. Angenommen wird, dass es einen Klienten und einen Server gibt, zwischen denen Nachrichten hin und her geschickt werden. Es soll eine zustandslose Interaktion sein, was bedeutet, dass in der Nachricht selbst die Repräsentation des Zustandes einer Ressource enthalten ist und nicht ein Zustand beim Sender oder Empfänger der Nachricht gehalten wird. CouchDB nutzt REST, um die Verwaltung der Datenbanken mit Hilfe von HTTP zu realisieren. Außerdem bietet es eine Web-Schnittstelle namens \textit{Futon} zur Verwaltung im Browser.\\
-Replikation wird von CouchDB in inkrementeller Weise unterstützt. Werden von CouchDB Daten mehrere Datenbanken synchronisiert, werden nur die Änderungen Schritt für Schritt übertragen. Sollte zwischendurch die Verbindung zusammenbrechen, kann später einfach an der Stelle weitergemacht werden, an der die Synchronisation unterbrochen wurde. Ein Grundannahme von CouchDB ist, dass Fehler passieren werden und in Folge dessen war Fehlertolleranz ein Kernaspekt beim Entwurf der Datenbank.\\
+Replikation wird von CouchDB in inkrementeller Weise unterstützt. Werden mehrere Datenbanken synchronisiert, werden nur die Änderungen Schritt für Schritt übertragen. Sollte zwischendurch die Verbindung zusammenbrechen, kann später einfach an der Stelle weitergemacht werden, an der die Synchronisation unterbrochen wurde, ohne dass Inkonsistenzen entstehen. Eine Grundannahme von CouchDB ist, dass Fehler passieren werden und in Folge dessen war Fehlertolleranz ein Kernaspekt beim Entwurf der Datenbank.\\
 Wie die meisten NoSQL-Datenbanken setzt auch CouchDB auf ein anderes Konsistenzmodell als die klassischen relationalen Datenbanken. Es verfolgt den Ansatz der \textit{eventual consistency}. Hier muss nicht jeder Nutzer zu jedem Zeitpunkt die gleichen Daten sehen, sondern es wird nur angenommen, dass die Daten letztendlich konsistent sein werden. Für den Zeitraum der Synchronisation sind in bei diesem Konzept Lesezugriffe auf die Datenbank möglich.
+
+\subsection{CouchDB - Anfragen auf semi-strukturierte Daten}
+
+Wie im letzten Kapitel beschrieben wurde werden in einer Couch-Datenbank nur semi-strukturierte Daten abgespeichert. Ohne eine bekannte Struktur kann jedoch keine erfolgreiche Anfrage durchgeführt werden. Zur Lösung dieser Problematik ist es in CouchDB-möglich, sogenannte \textit{Views} anzulegen, die eine Strukturierung vorhandener Daten vornehmen \cite[S. 54 ff.]{couchDB}. Die Idee und Anwendung von Views lässt sich am besten anhand eines Beispiels illustrieren.
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=1.00\textwidth]{figures/Bild1.png}
+	\caption{Beispieldokumente einer Couch-Datenbank}
+	\label{fig:Bild1}
+\end{figure}

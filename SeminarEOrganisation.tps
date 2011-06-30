@@ -4,8 +4,8 @@ Version=2
 
 [SessionInfo]
 ActiveTab=0
-FrameCount=7
-ActiveFrame=6
+FrameCount=6
+ActiveFrame=5
 
 [Frame0]
 Columns=1
@@ -103,12 +103,12 @@ MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
 MaxPos.y=-30
-NormalPos.left=0
-NormalPos.top=0
-NormalPos.right=1035
-NormalPos.bottom=319
+NormalPos.left=25
+NormalPos.top=25
+NormalPos.right=1060
+NormalPos.bottom=344
 Class=CLatexEdit
-Document=analyseUmbau.tex
+Document=datenmigration.tex
 
 [Frame3_Row0]
 cyCur=260
@@ -119,40 +119,11 @@ cxCur=998
 cxMin=10
 
 [Frame3_View0,0]
-Cursor.row=1
-Cursor.column=6
-TopSubLine=0
-
-[Frame4]
-Columns=1
-Rows=1
-Flags=0
-ShowCmd=1
-MinPos.x=-1
-MinPos.y=-1
-MaxPos.x=-8
-MaxPos.y=-30
-NormalPos.left=25
-NormalPos.top=25
-NormalPos.right=1060
-NormalPos.bottom=344
-Class=CLatexEdit
-Document=datenmigration.tex
-
-[Frame4_Row0]
-cyCur=260
-cyMin=10
-
-[Frame4_Col0]
-cxCur=998
-cxMin=10
-
-[Frame4_View0,0]
 Cursor.row=0
 Cursor.column=0
 TopSubLine=0
 
-[Frame5]
+[Frame4]
 Columns=1
 Rows=1
 Flags=0
@@ -168,20 +139,20 @@ NormalPos.bottom=369
 Class=CLatexEdit
 Document=olio.tex
 
-[Frame5_Row0]
+[Frame4_Row0]
 cyCur=260
 cyMin=10
 
-[Frame5_Col0]
+[Frame4_Col0]
 cxCur=998
 cxMin=10
 
-[Frame5_View0,0]
+[Frame4_View0,0]
 Cursor.row=0
 Cursor.column=22
 TopSubLine=0
 
-[Frame6]
+[Frame5]
 Columns=1
 Rows=1
 Flags=2
@@ -197,16 +168,16 @@ NormalPos.bottom=394
 Class=CLatexEdit
 Document=couchDB.tex
 
-[Frame6_Row0]
-cyCur=527
+[Frame5_Row0]
+cyCur=395
 cyMin=10
 
-[Frame6_Col0]
-cxCur=1213
+[Frame5_Col0]
+cxCur=1139
 cxMin=10
 
-[Frame6_View0,0]
-Cursor.row=24
-Cursor.column=451
-TopSubLine=38
+[Frame5_View0,0]
+Cursor.row=4
+Cursor.column=26
+TopSubLine=56
 
