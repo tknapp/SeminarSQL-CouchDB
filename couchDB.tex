@@ -1,7 +1,7 @@
 \section{CouchDB als Beispiel einer nicht-relationalen Datenbank}
 \label{couchDB}
 
-Dieses Kapitel stellt zunächst allgemein nicht-relationale Datenbanken und ihre Eigenschaften vor. Anschließend wird exemplarisch die Datenbank \textit{CouchDB} näher beschrieben
+Dieses Kapitel stellt zunächst allgemein nicht-relationale Datenbanken und ihre Eigenschaften vor. Anschließend wird exemplarisch die Datenbank \textit{CouchDB} näher beschrieben.
 
 \subsection{Nicht-relationale Datenbanken}
 CouchDB gehört zur Klasse sogenannten der NoSQL-Datenbanken. Dieser Begriff wurde Ende der 1990er Jahre geprägt, konnte jedoch seitdem nicht eindeutig definiert werden. Zwar gibt es ein NoSQL-Archiv \cite{nosqlArchiv}, das sich um eine Definiton bemüht hat, jedoch ist diese nicht in allen Punkten allgemein anerkannt und bietet nur eine Orientierung \cite[S. 2 ff.]{nosqlBuch}.\\
@@ -37,7 +37,7 @@ Wie die meisten NoSQL-Datenbanken setzt auch CouchDB auf ein anderes Konsistenzm
 
 \subsection{CouchDB - Anfragen auf semi-strukturierte Daten}
 
-Wie im letzten Kapitel beschrieben wurde werden in einer Couch-Datenbank nur semi-strukturierte Daten abgespeichert. Ohne eine bekannte Struktur kann jedoch keine erfolgreiche Anfrage durchgeführt werden. Zur Lösung dieser Problematik ist es in CouchDB-möglich, sogenannte \textit{Views} anzulegen, die eine Strukturierung vorhandener Daten vornehmen \cite[S. 54 ff.]{couchDB}. Die Idee und Anwendung von Views lässt sich am besten anhand eines Beispiels illustrieren.
+Wie im letzten Kapitel beschrieben wurde, werden in einer Couch-Datenbank nur semi-strukturierte Daten abgespeichert. Ohne eine bekannte Struktur kann jedoch keine gezielte Anfrage auf eine Datenbank durchgeführt werden. Zur Lösung dieser Problematik ist es in CouchDB-möglich, sogenannte \textit{Views} anzulegen, die eine Strukturierung vorhandener Daten vornehmen \cite[S. 54 ff.]{couchDB}. Die Idee und Anwendung von Views lässt sich am besten anhand eines Beispiels illustrieren.
 
 \begin{figure}[ht]
 	\centering
@@ -59,4 +59,4 @@ CouchDB bietet die Möglichkeit, mit JavaScript-Funktionen sogenannte \textit{Vie
 Abbildung \ref{fig:MapFktUndView} zeigt auf der linken Seite eine in JavaScript implementierte Map-Funktion. Der Funktion wird als Argument jeweils ein Dokument aus der Datenbank übergeben, auf welches die Anweisungen aus dem Methodenrumpf angewandt werden. In diesem Fall überprüft die Methode, ob das Dokument die Attribute "`title"' und "`description"' besitzt. Trifft das zu, wird die emit-Funktion (emit=ausgeben) mit den beiden überprüften  Attributen aufgerufen. Diese Funktion hat immer zwei Argumente. Das erste ist ein Schlüssel (\textit{Key}) und das zweite ein dazugehöriger Wert (\textit{Value}). Beide Argumente werden in eine Liste geschrieben (Abbildung \ref{fig:MapFktUndView} rechter Teil), die dann den View darstellt. Nun hat man aus den unstrukturierten Dokumenten die Informationen \textit{Titel} und \textit{Beschreibung} von drei Büchern extrahiert und in eine durchsuchbare Form gebracht. \\
 Die Liste stellt allerdigs nicht nur eine einfache Aneinanderreihung von Daten dar, sondern hat die Struktur eines B-Baums. Die Daten werden sortiert nach dem Schlüssel in diesem gespeichert. Der Vorteil ist, dass Operationen wie Einfügen, Löschen oder Suchen mit logarithmischem Aufwand bewältigt werden können. Eine Reduce-Funktion, die in CouchDB allerdings optional ist, könnte beispielsweise alle Bücher mit dem Schlüsselwort "`blub"' aus dem View zurückgeben.\\
 
-Mit Views lassen sich umfangreiche Filterfunktionen implementieren und Daten in einer bestimmten Reihenfolge repräsentieren. Außerdem lassen sich effziente Indexstrukturen aufbauen, in denen Dokumente effizient nach einem beliebigen Schlüssel durchsucht werden können. Das Aufbauen der Views kann bei großen Datenmengen allerdings sehr lange dauern, da hier jedes einzelne Dokument durchsucht werden muss. 
+Mit Views lassen sich umfangreiche Filterfunktionen implementieren und Daten in einer bestimmten Reihenfolge repräsentieren. Außerdem lassen sich effziente Indexstrukturen aufbauen, in denen Dokumente nach einem beliebigen Schlüssel durchsucht werden können. Das Aufbauen der Views kann bei großen Datenmengen allerdings sehr lange dauern, da hier jedes einzelne Dokument untersucht werden muss. 

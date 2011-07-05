@@ -1,3 +1,25 @@
 \section{Eine typische Web 2.0-Anwendung: Olio}
 \label{olio}
 
+Der Wechsel von einer relationalen Datenbank zu einer nicht-relationalen Datenbank soll nicht abstrakt, sondern konkret anhand einer Beispiel-Web-Anwendung evaluiert werden. Die hier verwendete Beispielanwendung nennt sich \textit{Olio}. Zur Evaluation wurde diese Anwendung ausgewählt, weil sie typische Eigenschaften einer Web 2.0-Anwendung wie Nutzerinteraktion und dynamische Inhalte aufweist und außerdem frei zugänglichen Quellcode besitzt. Die Anwendung wurde im Rahmen des Projektes Cloudstone ursprünglich als Referenzanwendung für Performanztests entwickelt. Olio liegt in verschiedenen Implementierungen vor (Ruby, PHP und JavaEE) vor und kann auf verschiedenen Hardware-Konfigurationen bereitgestellt werden. \\
+Inhaltlich handelt es sich bei Olio um eine Anwendung zur Veröffentlichung von sozialen Ereignissen aller Art. Besucher der Anwendungen können Ereignisse anschauen und kommentieren, eigene Nutzerkonten anlegen und selbst Ereignisse veröffentlichen. Außerdem kann ein Nutzer an einem Ereignis "`teilnehmen"', indem er sein Nutzerkonto mit dem Ereignis verbindet. Andere Nutzer können so sehen, wer voraussichtlich eine Veranstaltung besuchen wird. Sind viele Nutzer mit einem Ereignis verbunden, wird es auch für andere Nutzer attraktiver. Es entstehen die für soziale Netzwerkeffekte so typischen Netzwerkeffekte.\\
+
+Für die Evaluation bezüglich der Austauschbarkeit der Datenbanken wurde die Ruby-Implementierung von Olio gewählt. Olio wurde in diesem Fall als Ruby On Rails-Anwendung entwickelt. \textit{Rails} \cite{rubyOnRailsWebsite} ist ein in Ruby geschriebenes Open-Source Rahmenwerk zur Entwicklung agiler Web-Anwendungen, welches die Direktheit von PHP und die Architektureigenschaften von Java vereint \cite{RoRArticle}. Es stellt Konvention über Konfiguration und baut auf dem Architekturstil \textit{Model View Controller (MVC)} auf. Dieser Stil besteht im Wesentlichen aus drei Komponenten, die in Tabelle \ref{tab:KomponentenDesArchitekturstilsTextitModelViewController} vorgestellt werden.
+
+\begin{table}[hp]
+	\centering
+		\begin{tabular}{|l|p{9cm}|}
+		\hline
+		\textbf{Models} & Die Daten der Web-Anwendung sowie die Regeln zur Manipulation dieser Daten werden hier verwaltet. Diese Komponente stellt die Verbindung zur verwendeten Datenbank her.\\
+		\hline
+		\textbf{Views} & Sie stellen die Nutzerschnittstelle dar und kümmern um die Versorgung der Klienten mit Daten. Ein Klient könnte hierbei ein Webbrowser oder eine andere Anwendung sein. Daten sind meist vorverarbeitete Daten, beispielsweise in Form einer generierten HTML-Seite. \\
+		\hline
+		\textbf{Controller  } & Diese Komponente koordiniert das Zusammenspiel von Models und Views und stellt somit den "`Klebstoff"' zwischen den beiden Komponenten dar. Es nimmt Anfragen von außen an, leitet diese entsprechend weiter und regelt das Versenden der entsprechenden Antworten.\\
+		\hline
+		\end{tabular}
+	\caption{Komponenten des Architekturstils \textit{Model View Controller}}
+	\label{tab:KomponentenDesArchitekturstilsTextitModelViewController}
+\end{table}
+
+Ruby on Rails-Anwendungen sind grundsätzlich für die Nutzung von relationalen Datenbanken vorkonfiguriert. Hierzu wurde das Konzept \textit{ActiveRecord} entworfen, welches eine Schnittstelle zu einer relationale Datenbank bereitstellt. Da Ruby eine objektorientierte Programmiersprache ist, können die Ergebnisse von SQL-Abfragen nicht direkt verarbeitet werden, da diese nur als Zeichenkette interpretiert würden. Zur Überbrückung dieser Problematik bildet ActiveRecord SQL-Tabellen auf Ruby-Klassen ab und einzelne Zeilen auf Ruby-Objekte. So können die in Tabellen dargestellten Ergebnisse von SQL-Abfragen in Ruby bearbeitet werden.\\
+Da ActiveRecord allerdings nur für Datenbanken mit relationalem Tabellenschemata verwendet werden kann, wird der Anschluss von CouchDB mit seinem schemalosen Design auf diese Weise nicht funktionieren. Der Umbau von einer relationalen auf eine nicht-relationale Datenbank verursacht folglich einen höherem Aufwand als die bloße Anpassung einer Konfigurationsdatei zum Anschluss der Datenbank.

@@ -1,3 +1,36 @@
-\section{Analyse des Wechsels der Datenbank von MySQL hin zu CouchDB}
+\section{Analyse des Wechsels der Datenbank von MySQL zu CouchDB}
 \label{analyse}
 
+Bevor ein Wechsel von einem Datenbanksystem zu einem anderen beschlossen wird, sollte die Machbarkeit des Vorhabens geprüft werden. Im Falle von Olio sind die Ziele, welche durch einen Wechsel erreícht werden sollen, ein Performanzgewinn bei der Abfrage von Ereignissen durch viele Nutzer und höhere Flexibilität bei veränderten Anforderungen an beispielsweise Ereignisse oder Nutzer.\\
+Wichtigste Voraussetzung für einen Wechsel ist, dass die alte Funktionalität der Anwendung erhalten bleibt. Zwar kann beispielsweise bei wenig genutzten Funktionen, die nicht mit dem neuen System realisiert werden können, abgewogen werden, ob sie zu Gunsten der Performanz des Gesamtsystems abgeschaltet werden könnten, jedoch sollte dies gut überlegt werden. Eventuell könnte eine Abschaltung zu Nutzerverlusten führen, da diese schneller wahrgenommen wird als ein Performanzgewinn.\\
+Die Überprüfung der Machbarkeit des Wechsels muss für jede einzelne Funktionalität im Zusammenhang mit einer Datenbank überprüft werden. Für Olio bedeutet dies, dass zunächst alle datenbankrelevanten Funktionen gesammelt werden müssen und es muss geprüft werden, ob der Entwurf eines entsprechenden Views möglich ist. Nach der Untersuchung von Olio konnten die folgenden Funktionen gefunden werden:
+
+
+\begin{itemize}
+	\item[$\bullet$] Nutzer anlegen
+	\item[$\bullet$] Login
+	\item[$\bullet$] Ereignisse anlegen
+	\item[$\bullet$] Ereignisse ansehen
+	\item[$\bullet$] Bestimmtes Ereignis ansehen (Details)
+	\item[$\bullet$] Durchsuchen der angezeigten Ereignisse nach Postleitzahl	     
+  \item[$\bullet$] Sortieren der Ereignisse nach
+  		\begin{itemize}
+       \item[-] dem Erstellungsdatum
+       \item[-] dem Ereignisdatum
+     \end{itemize}
+  \item[$\bullet$] Durchsuchen der den Ereignissen zugeordneten Stichworte nach Freitext
+  \item[$\bullet$] Literatur zu einem Ereigniss anzeigen
+  \item[$\bullet$] Teilnehmer ansehen
+  \item[$\bullet$] Kommentieren von Ereignissen
+  \item[$\bullet$] Kommentare ansehen
+  \item[$\bullet$] Nutzer zu Ereignis einladen
+\end{itemize}
+
+Eine genauere Überprüfung muss nur bei abfragenden Funktionen durchgeführt werden, da schreibende Zugriffe auf die Datenbank wegen des schemalosen Designs von CouchDB problemlos möglich sind. Zu den reinen schreibenden Zugriffen zählen hier allerdings nur das Anlegen eines Nutzers und eines Ereignisses, sowie das Schreiben eines Kommentars zu einem Ereignis.\\
+Die Funktionen zum Sortieren der Ereignisse nach Erstellungsdatum und dem Datum, an dem das Ereignis stattfindet, sind keine eindeutigen Datenbankzugriffe. Es gäbe einerseits die Möglichkeit, eine Sortierfunktion auf bereits aus der Datenbank geladenen Ereignissen zu erstellen, andererseits sind auch Views mit den verschiedenen Daten als Schlüssel vorstellbar. Gleiches gilt für die Suchfunktion nach Postleitzahl und nach Stichwort. Im Endeffekt bleibt es hier dem verantwortlichen Entwickler überlassen, auf welche Weise diese Funktionen implementiert werden. An dieser Stelle kann mangels empirischer Werte keine Empfehlung auf Basis der zu erwartenden Performanz für das eine oder das andere Verfahren gegeben werden.\\
+Die restlichen Funktionen stellen jedoch eindeutige Datenbankzugriffe dar. Zum Überprüfen der Login-Daten kann ein View mit dem Benutzernamen als Schlüssel und dem Passwort als Wert verwendet werden. Sollen beispielsweise auf der Startseite der Anwendung alle Ereignisse bis zu einem bestimmten Datum angezeigt werden, so ist hierfür ein View mit den Daten der Ereignisse als Schlüssel und den restlichen Attributen des Ereignisses in Form eines Arrays als Wert denkbar. Für die Darstellung auf der Übersichtsseite ist allerdings nur der Zeitstempel, der Name und ein Miniaturbild notwendig. Prinzipiell wären die restlichen Attributwerte im Array dann zwar überflüssig, jedoch können diese für die Detaildarstellung eines Attributs verwendet werden.\\
+Das Anzeigen der Literatur zu einem Ereignis und die Details einzelner Teilnehmer können als View implementiert werden. Werden als Schlüssel für den Zugriff auf die Literatur die Literatur selbst und zusätzlich das Ereignis zusammengefasst in einem Array verwendet, kann diese gut identifiziert werden. Unter der Annahme, dass jeder Nutzername individuell ist, kann bei der Suche nach einem bestimmten Nutzer der Nutzername als Schlüssel im View verwendet werden. \\
+Eine Einladung eines Nutzers an einen anderen Nutzer zu einem Ereignis stellt eine Mischform aus lesenden und schreibenden Zugriffen auf die Datenbank dar, da im relationalen Modell in Olio eine eigene Tabelle für die Einladungen existiert, jedoch die Daten über beide beteiligten Nutzer und das Ereignis ebenfalls verfügbar sein müssen. Ähnlich verhält es sich mit Kommentaren, da für diese auch eine eigene Tabelle in Olio existiert. Hier weiß beispielsweise zwar ein Kommentar, dass er zu einem bestimmten Ereignis gehört, jedoch hat ein Ereignis selbst keinerlei Kenntnisse über dessen Existenz. Der gleiche Sachverhalt stellt sich bei Nutzern dar, die an einem Ereignis teilnehmen. Auch diese Information wird nicht mit einer Assoziation vom Ereignis zum Teilnehmer gespeichert.\\
+Nach der konzeptionellen Einzelüberprüfung aller Funktionen von Olio kann resümiert werden, dass es grundsätzlich möglich ist, für alle Fälle einen entsprechenden View zu erstellen.\\
+
+Vor der endgültigen Umstellung von MySQL auf CouchDB müssen noch einige Design-Entscheidungen getroffen werden. Als Folge des schemalosen Designs von CouchDB sind keine Joins, wie sie aus SQL bekannt sind, möglich. Da es aber Teil des SQL-Konzeptes ist, dass Daten nicht redundant gespeichert werden, sondern über Fremdschlüsselbeziehungen miteinander verbunden werden, muss hier bei der Implementierung von CouchDB-Views umgedacht werden.

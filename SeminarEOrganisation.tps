@@ -5,7 +5,7 @@ Version=2
 [SessionInfo]
 ActiveTab=0
 FrameCount=8
-ActiveFrame=5
+ActiveFrame=6
 
 [Frame0]
 Columns=1
@@ -32,8 +32,8 @@ cxCur=949
 cxMin=10
 
 [Frame0_View0,0]
-Cursor.row=11
-Cursor.column=16
+Cursor.row=0
+Cursor.column=0
 TopSubLine=0
 
 [Frame1]
@@ -90,9 +90,9 @@ cxCur=1063
 cxMin=10
 
 [Frame2_View0,0]
-Cursor.row=1
+Cursor.row=0
 Cursor.column=0
-TopSubLine=0
+TopSubLine=36
 
 [Frame3]
 Columns=1
@@ -150,13 +150,13 @@ cxMin=10
 [Frame4_View0,0]
 Cursor.row=0
 Cursor.column=0
-TopSubLine=0
+TopSubLine=32
 
 [Frame5]
 Columns=1
 Rows=1
-Flags=2
-ShowCmd=3
+Flags=0
+ShowCmd=1
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -169,23 +169,23 @@ Class=CLatexEdit
 Document=couchDB.tex
 
 [Frame5_Row0]
-cyCur=395
+cyCur=260
 cyMin=10
 
 [Frame5_Col0]
-cxCur=1139
+cxCur=998
 cxMin=10
 
 [Frame5_View0,0]
-Cursor.row=61
-Cursor.column=405
-TopSubLine=126
+Cursor.row=0
+Cursor.column=0
+TopSubLine=0
 
 [Frame6]
 Columns=1
 Rows=1
-Flags=0
-ShowCmd=1
+Flags=2
+ShowCmd=3
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -198,17 +198,17 @@ Class=CLatexEdit
 Document=analyseUmbau.tex
 
 [Frame6_Row0]
-cyCur=232
+cyCur=527
 cyMin=10
 
 [Frame6_Col0]
-cxCur=998
+cxCur=1213
 cxMin=10
 
 [Frame6_View0,0]
-Cursor.row=0
+Cursor.row=36
 Cursor.column=0
-TopSubLine=0
+TopSubLine=63
 
 [Frame7]
 Columns=1
@@ -235,7 +235,7 @@ cxCur=998
 cxMin=10
 
 [Frame7_View0,0]
-Cursor.row=3
-Cursor.column=23
+Cursor.row=0
+Cursor.column=0
 TopSubLine=0
 
