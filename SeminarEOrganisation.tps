@@ -4,7 +4,7 @@ Version=2
 
 [SessionInfo]
 ActiveTab=0
-FrameCount=8
+FrameCount=9
 ActiveFrame=6
 
 [Frame0]
@@ -32,9 +32,9 @@ cxCur=949
 cxMin=10
 
 [Frame0_View0,0]
-Cursor.row=0
-Cursor.column=0
-TopSubLine=0
+Cursor.row=22
+Cursor.column=13
+TopSubLine=10
 
 [Frame1]
 Columns=1
@@ -90,9 +90,9 @@ cxCur=1063
 cxMin=10
 
 [Frame2_View0,0]
-Cursor.row=0
+Cursor.row=14
 Cursor.column=0
-TopSubLine=36
+TopSubLine=45
 
 [Frame3]
 Columns=1
@@ -150,7 +150,7 @@ cxMin=10
 [Frame4_View0,0]
 Cursor.row=0
 Cursor.column=0
-TopSubLine=32
+TopSubLine=0
 
 [Frame5]
 Columns=1
@@ -177,9 +177,9 @@ cxCur=998
 cxMin=10
 
 [Frame5_View0,0]
-Cursor.row=0
-Cursor.column=0
-TopSubLine=0
+Cursor.row=9
+Cursor.column=89
+TopSubLine=23
 
 [Frame6]
 Columns=1
@@ -198,7 +198,7 @@ Class=CLatexEdit
 Document=analyseUmbau.tex
 
 [Frame6_Row0]
-cyCur=527
+cyCur=458
 cyMin=10
 
 [Frame6_Col0]
@@ -206,9 +206,9 @@ cxCur=1213
 cxMin=10
 
 [Frame6_View0,0]
-Cursor.row=36
+Cursor.row=58
 Cursor.column=0
-TopSubLine=63
+TopSubLine=134
 
 [Frame7]
 Columns=1
@@ -237,5 +237,34 @@ cxMin=10
 [Frame7_View0,0]
 Cursor.row=0
 Cursor.column=0
+TopSubLine=0
+
+[Frame8]
+Columns=1
+Rows=1
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-8
+MaxPos.y=-30
+NormalPos.left=50
+NormalPos.top=50
+NormalPos.right=1134
+NormalPos.bottom=379
+Class=CLatexEdit
+Document=anhang.tex
+
+[Frame8_Row0]
+cyCur=270
+cyMin=10
+
+[Frame8_Col0]
+cxCur=1047
+cxMin=10
+
+[Frame8_View0,0]
+Cursor.row=4
+Cursor.column=5
 TopSubLine=0
 
