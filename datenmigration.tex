@@ -1,7 +1,7 @@
 \section{Datenmigration von MySQL zu CouchDB}
 \label{datenmigration}
 
-In diesem Kapitel soll auf technischer Ebene die Migration von bestehenden Daten aus einer MySQL-Datenbank in eine Couch-Datenbank erläutert werden. Zur besseren Veranschaulichung wird auch dies wieder an einem Beispiel gezeigt.  
+In diesem Kapitel soll auf technischer Ebene die Migration von bestehenden Daten aus einer MySQL-Datenbank in eine Couch-Datenbank erläutert werden. Zur besseren Veranschaulichung wird auch dies an einem Beispiel gezeigt.  
 
 \begin{figure}
 	\centering
@@ -10,4 +10,25 @@ In diesem Kapitel soll auf technischer Ebene die Migration von bestehenden Daten
 	\label{fig:beispielDatenmigration}
 \end{figure}
 
-Abbildung \ref{fig:beispielDatenmigration}
+Abbildung \ref{fig:beispielDatenmigration} zeigt eine MySQL-Tabelle mit zwei Datensätzen (Zeilen), die in das darunterliegende JSON-Dokument überführt werden müssen, um von CouchDB interpretiert werden zu können. Das Dokument enthält ein Array (\textit{docs}), welches für jede Zeile einen Eintrag enthält. Ziel ist es nun, die Daten aus der MySQL-Tabelle in JSON-Format zu überführen. Der hier beschriebene Vorgang unterliegt der Annahme, dass die Daten ohne Transformationsschritt, wie beispielsweise eine Zusammenführung zweier Datenbanken, durchgeführt werden kann. Für die reine Übertragung kann eine SQL-Anfrage benutzt werden, die die Daten Attribut für Attribut aus der Datenbank ausliest, konkateniert und zeilenweise in ein Dokument schreibt. Abbildung \ref{fig:SQL-Befehl} zeigt diese Anfrage. Im Beispiel werden die Daten der Tabelle \textit{documents} aus der Datenbank \textit{olio} ausgelesen und in die Datei \textit{documents.json} geschrieben. Bei der Wahl des Speicherortes für das Dokument ist darauf zu achten, dass MySQL entsprechende Zugriffsrechte auf dieses Verzeichnis hat. 
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.90\textwidth]{figures/SQL-Befehl.png}
+	\caption{SQL-Anfrage zum Auslesen der Tabelle \textit{documents} in der Datenbank \textit{olio}}
+	\label{fig:SQL-Befehl}
+\end{figure}
+
+Dieses Dokument ist allerdings noch nicht in der gewünschten Form, da durch die SQL-Abfrage bisher nur die Daten untereinander geschrieben wurden. Es fehlen noch die geschwungenen Klammern, die das gesamte Dokument eingrenzen, und das Array, um die Datensätze zusammenzufassen. Dies kann beispielsweise über ein Ruby-Skript gelöst werden, welches die entsprechenden Zeichen in das Dokument (hier: \textit{documents.json}) einfügt.\\
+Bis zu diesem Schritt weiß CouchDB allerdings noch nichts von der Existenz der Daten. Zwar liegen diese zusammengefasst in einem Array vor, jedoch müssen diese nun noch in CouchDB geladen werden. Hierfür hält CouchDB die sehr nützliche \textit{Bulk-Load}-Funktion bereit. Mit dieser Funktion können viele Datensätze auf ein Mal in CouchDB geladen werden. Gegenüber der Einzelabspeicherung von Daten kann durch diese Funkion viel Zeit gewonnen werden, wenn die Datensätze entsprechend groß sind. 
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.90\textwidth]{figures/curlBefehl.png}
+	\caption{Curl-Befehl zum Laden vieler Daten in CouchDB}
+	\label{fig:curlBefehl}
+\end{figure}
+
+Abbildung \ref{fig:curlBefehl} zeigt den Befehl zum gleichzeitigen Laden vieler Daten. Da CouchDB eine REST-Schnittstelle anbietet, wird hierzu das Kommandozeilenwerkzeug \textit{Curl} verwendet, das entwickelt wurde, um Daten mit Url-Syntax unter anderem mittels HTTP, SSH oder FTP zu übertragen.\\
+Der Zugriff auf die Datenbank erfolgt über eine einfache Url (hier der Localhost auf dem gleichen Rechner über Port 5894), an die der Name der Datenbank (\textit{olio\_db} angehangen wird. Auch der Befehl \textit{\_bulk\_docs}, welcher ausgeführt werden soll, ist Teil der Url. Die Datei, in der die zu ladenden Daten liegen, wird über die Option \textit{-d} angegeben. Zusätzlich muss noch der Typ der übertragenen Daten angegeben werden, in diesem Falll JSON.\\
+CouchDB geht bei einem Bulk Load so vor, dass es für jeden Eintrag im Array ein eigenes Dokument in der entsprechenden Datenbank anlegt. Der Nachteil dieses Verfahrens ist allerdings, dass bei vielen Attributen in einer Datenbank der SQL-Befehl entsprechend lang wird. Eine Möglichtkeit der Vereinfachung ist, beispielsweise ein Ruby-Skript zu erstellen, dem als Parameter der Datenbankname, der Tabellenname und die entsprechenden Attribute übergeben werden und welches die Anfrage automatisch erstellt. Durch die Parametrisierung wird eine ausreichende Flexibilität erreicht, um die Daten aus verschiedenen Datenbanken in CouchDB zu laden, ohne lange Befehle von Hand schreiben zu müssen.

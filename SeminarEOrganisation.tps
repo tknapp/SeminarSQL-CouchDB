@@ -3,9 +3,9 @@ Type=TeXnicCenterProjectSessionInformation
 Version=2
 
 [SessionInfo]
-ActiveTab=0
+ActiveTab=2
 FrameCount=9
-ActiveFrame=6
+ActiveFrame=3
 
 [Frame0]
 Columns=1
@@ -90,15 +90,15 @@ cxCur=1063
 cxMin=10
 
 [Frame2_View0,0]
-Cursor.row=14
-Cursor.column=0
-TopSubLine=45
+Cursor.row=9
+Cursor.column=882
+TopSubLine=44
 
 [Frame3]
 Columns=1
 Rows=1
-Flags=0
-ShowCmd=1
+Flags=2
+ShowCmd=3
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -111,17 +111,17 @@ Class=CLatexEdit
 Document=datenmigration.tex
 
 [Frame3_Row0]
-cyCur=260
+cyCur=486
 cyMin=10
 
 [Frame3_Col0]
-cxCur=998
+cxCur=1213
 cxMin=10
 
 [Frame3_View0,0]
-Cursor.row=0
-Cursor.column=0
-TopSubLine=0
+Cursor.row=33
+Cursor.column=690
+TopSubLine=36
 
 [Frame4]
 Columns=1
@@ -148,9 +148,9 @@ cxCur=998
 cxMin=10
 
 [Frame4_View0,0]
-Cursor.row=0
-Cursor.column=0
-TopSubLine=0
+Cursor.row=6
+Cursor.column=624
+TopSubLine=26
 
 [Frame5]
 Columns=1
@@ -177,15 +177,15 @@ cxCur=998
 cxMin=10
 
 [Frame5_View0,0]
-Cursor.row=9
-Cursor.column=89
-TopSubLine=23
+Cursor.row=15
+Cursor.column=11
+TopSubLine=74
 
 [Frame6]
 Columns=1
 Rows=1
-Flags=2
-ShowCmd=3
+Flags=0
+ShowCmd=1
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -198,17 +198,17 @@ Class=CLatexEdit
 Document=analyseUmbau.tex
 
 [Frame6_Row0]
-cyCur=458
+cyCur=232
 cyMin=10
 
 [Frame6_Col0]
-cxCur=1213
+cxCur=998
 cxMin=10
 
 [Frame6_View0,0]
-Cursor.row=58
-Cursor.column=0
-TopSubLine=134
+Cursor.row=76
+Cursor.column=564
+TopSubLine=216
 
 [Frame7]
 Columns=1
