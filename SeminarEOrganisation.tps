@@ -90,8 +90,8 @@ cxCur=1063
 cxMin=10
 
 [Frame2_View0,0]
-Cursor.row=9
-Cursor.column=882
+Cursor.row=0
+Cursor.column=0
 TopSubLine=44
 
 [Frame3]
@@ -111,17 +111,17 @@ Class=CLatexEdit
 Document=datenmigration.tex
 
 [Frame3_Row0]
-cyCur=486
+cyCur=354
 cyMin=10
 
 [Frame3_Col0]
-cxCur=1213
+cxCur=1139
 cxMin=10
 
 [Frame3_View0,0]
-Cursor.row=33
-Cursor.column=690
-TopSubLine=36
+Cursor.row=31
+Cursor.column=272
+TopSubLine=41
 
 [Frame4]
 Columns=1
@@ -177,9 +177,9 @@ cxCur=998
 cxMin=10
 
 [Frame5_View0,0]
-Cursor.row=15
-Cursor.column=11
-TopSubLine=74
+Cursor.row=0
+Cursor.column=0
+TopSubLine=0
 
 [Frame6]
 Columns=1
@@ -206,9 +206,9 @@ cxCur=998
 cxMin=10
 
 [Frame6_View0,0]
-Cursor.row=76
-Cursor.column=564
-TopSubLine=216
+Cursor.row=78
+Cursor.column=281
+TopSubLine=238
 
 [Frame7]
 Columns=1

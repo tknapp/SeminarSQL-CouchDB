@@ -6,7 +6,7 @@ In diesem Kapitel soll auf technischer Ebene die Migration von bestehenden Daten
 \begin{figure}
 	\centering
 		\includegraphics[width=1.00\textwidth]{figures/beispielDatenmigration.png}
-	\caption{Gleiche Daten gespeichert in einer MySQL-Tabelle und in einem CouchDB-Dokument}
+	\caption{Gleiche Daten gespeichert in einer MySQL-Tabelle und in einem CouchDB-Dokument.}
 	\label{fig:beispielDatenmigration}
 \end{figure}
 
@@ -15,20 +15,20 @@ Abbildung \ref{fig:beispielDatenmigration} zeigt eine MySQL-Tabelle mit zwei Dat
 \begin{figure}
 	\centering
 		\includegraphics[width=0.90\textwidth]{figures/SQL-Befehl.png}
-	\caption{SQL-Anfrage zum Auslesen der Tabelle \textit{documents} in der Datenbank \textit{olio}}
+	\caption{SQL-Anfrage zum Auslesen der Tabelle \textit{documents} in der Datenbank \textit{olio}.}
 	\label{fig:SQL-Befehl}
 \end{figure}
 
-Dieses Dokument ist allerdings noch nicht in der gewünschten Form, da durch die SQL-Abfrage bisher nur die Daten untereinander geschrieben wurden. Es fehlen noch die geschwungenen Klammern, die das gesamte Dokument eingrenzen, und das Array, um die Datensätze zusammenzufassen. Dies kann beispielsweise über ein Ruby-Skript gelöst werden, welches die entsprechenden Zeichen in das Dokument (hier: \textit{documents.json}) einfügt.\\
-Bis zu diesem Schritt weiß CouchDB allerdings noch nichts von der Existenz der Daten. Zwar liegen diese zusammengefasst in einem Array vor, jedoch müssen diese nun noch in CouchDB geladen werden. Hierfür hält CouchDB die sehr nützliche \textit{Bulk-Load}-Funktion bereit. Mit dieser Funktion können viele Datensätze auf ein Mal in CouchDB geladen werden. Gegenüber der Einzelabspeicherung von Daten kann durch diese Funkion viel Zeit gewonnen werden, wenn die Datensätze entsprechend groß sind. 
+Das durch die SQL-Abfrage entstehende Dokument ist allerdings noch nicht in der gewünschten Form, da bisher nur die Daten untereinander geschrieben wurden. Es fehlen noch die geschwungenen Klammern, die das gesamte Dokument eingrenzen, und das Array, um die Datensätze zusammenzufassen. Dies kann beispielsweise über ein Ruby-Skript gelöst werden, welches die entsprechenden Zeichen in das Dokument (hier: \textit{documents.json}) einfügt.\\
+Bis zu diesem Schritt weiß CouchDB allerdings noch nichts von der Existenz der Daten. Zwar liegen diese zusammengefasst in einem Array vor, jedoch müssen diese nun noch in CouchDB geladen werden. Hierfür hält CouchDB die \textit{Bulk-Load}-Funktion bereit. Mit dieser Funktion können viele Datensätze auf einmal in CouchDB geladen werden. Gegenüber der Einzelabspeicherung von Daten kann durch diese Funkion viel Zeit gewonnen werden, wenn die Datensätze entsprechend groß sind. 
 
 \begin{figure}
 	\centering
 		\includegraphics[width=0.90\textwidth]{figures/curlBefehl.png}
-	\caption{Curl-Befehl zum Laden vieler Daten in CouchDB}
+	\caption{Curl-Befehl zum gleichzeitigen Laden mehrerer Datensätze in CouchDB mit \textit{Bulk Load}.}
 	\label{fig:curlBefehl}
 \end{figure}
 
-Abbildung \ref{fig:curlBefehl} zeigt den Befehl zum gleichzeitigen Laden vieler Daten. Da CouchDB eine REST-Schnittstelle anbietet, wird hierzu das Kommandozeilenwerkzeug \textit{Curl} verwendet, das entwickelt wurde, um Daten mit Url-Syntax unter anderem mittels HTTP, SSH oder FTP zu übertragen.\\
-Der Zugriff auf die Datenbank erfolgt über eine einfache Url (hier der Localhost auf dem gleichen Rechner über Port 5894), an die der Name der Datenbank (\textit{olio\_db} angehangen wird. Auch der Befehl \textit{\_bulk\_docs}, welcher ausgeführt werden soll, ist Teil der Url. Die Datei, in der die zu ladenden Daten liegen, wird über die Option \textit{-d} angegeben. Zusätzlich muss noch der Typ der übertragenen Daten angegeben werden, in diesem Falll JSON.\\
+Abbildung \ref{fig:curlBefehl} zeigt den Befehl zum gleichzeitigen Laden vieler Daten. Da CouchDB eine REST-Schnittstelle anbietet, wird hierzu das Kommandozeilenwerkzeug \textit{Curl} verwendet, das entwickelt wurde, um Daten mit Url-Syntax unter anderem mittels HTTP, SSH oder FTP zu übertragen \cite{curl}.\\
+Der Zugriff auf die Datenbank erfolgt über eine einfache Url (hier Localhost auf dem gleichen Rechner über Port 5984), an die der Name der Datenbank (\textit{olio\_db}) angehangen wird. Auch der auszuführende Befehl \textit{\_bulk\_docs} ist Teil der Url. Die Datei, in der die zu ladenden Daten liegen, wird über die Option \textit{-d} angegeben. Zusätzlich muss noch der Typ der übertragenen Daten angegeben werden, in diesem Falll JSON.\\
 CouchDB geht bei einem Bulk Load so vor, dass es für jeden Eintrag im Array ein eigenes Dokument in der entsprechenden Datenbank anlegt. Der Nachteil dieses Verfahrens ist allerdings, dass bei vielen Attributen in einer Datenbank der SQL-Befehl entsprechend lang wird. Eine Möglichtkeit der Vereinfachung ist, beispielsweise ein Ruby-Skript zu erstellen, dem als Parameter der Datenbankname, der Tabellenname und die entsprechenden Attribute übergeben werden und welches die Anfrage automatisch erstellt. Durch die Parametrisierung wird eine ausreichende Flexibilität erreicht, um die Daten aus verschiedenen Datenbanken in CouchDB zu laden, ohne lange Befehle von Hand schreiben zu müssen.
